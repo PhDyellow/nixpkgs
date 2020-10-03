@@ -334,7 +334,7 @@ let
     rtiff = [ pkgs.libtiff.dev ];
     runjags = [ pkgs.jags ];
     RVowpalWabbit = [ pkgs.zlib.dev pkgs.boost ];
-    rzmq = [ pkgs.zeromq ];
+    rzmq = [ pkgs.zeromq pkgs.pkgconfig ];
     SAVE = [ pkgs.zlib pkgs.bzip2 pkgs.icu pkgs.lzma pkgs.pcre ];
     sdcTable = [ pkgs.gmp pkgs.glpk ];
     seewave = [ pkgs.fftw.dev pkgs.libsndfile.dev ];
@@ -695,6 +695,10 @@ let
         export LIBXML_INCDIR=${pkgs.libxml2.dev}/include/libxml2
         patchShebangs configure
         '';
+    });
+
+    rzmq = old.rzmq.overrideDerivation (attrs: {
+      preConfigure = "patchShebangs configure";
     });
 
     Cairo = old.Cairo.overrideDerivation (attrs: {
