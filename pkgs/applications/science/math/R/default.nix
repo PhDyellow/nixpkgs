@@ -46,8 +46,8 @@ stdenv.mkDerivation rec {
     configureFlagsArray=(
       --disable-lto
       --with${lib.optionalString (!withRecommendedPackages) "out"}-recommended-packages
-      --with-blas="-L${blas}/lib -lblas"
-      --with-lapack="-L${lapack}/lib -llapack"
+      --with-blas=${if blasProvider.implementation == "mkl" then "-L${mkl}/lib -Wl,--no-as-needed -lmkl_gf_lp64 -Wl,--start-group -lmkl_gnu_thread  -lmkl_core  -Wl,--end-group -fopenmp  -ldl -lpthread -lm"  else "-L${blas}/lib -lblas"}
+      --with-lapack${if blasProvider.implementation == "mkl" then ""  else "=-L${lapack}/lib -llapack"}
       --with-readline
       --with-tcltk --with-tcl-config="${tcl}/lib/tclConfig.sh" --with-tk-config="${tk}/lib/tkConfig.sh"
       --with-cairo
