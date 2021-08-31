@@ -42,6 +42,10 @@ stdenv.mkDerivation rec {
   '';
 
   dontDisableStatic = static;
+  # intructions for just replacing the blas and lapack libraries
+#https://software.intel.com/content/www/us/en/develop/articles/quick-linking-intel-mkl-blas-lapack-to-r.html
+#instructions for compiling in the libraries
+#https://software.intel.com/content/www/us/en/develop/articles/using-intel-mkl-with-r.html
 
   preConfigure = ''
     configureFlagsArray=(
