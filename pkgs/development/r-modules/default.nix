@@ -457,7 +457,7 @@ let
     VariantAnnotation = with pkgs; [ zlib.dev curl.dev ];
     snpStats = [ pkgs.zlib.dev ];
     hdf5r = [ pkgs.hdf5.dev ];
-    httpgd = with pkgs; [ cairo.dev ];
+    httpgd = with pkgs; [ cairo.dev pkg-config ];
     SymTS = [ pkgs.gsl ];
     VBLPCM = [ pkgs.gsl ];
     dynr = [ pkgs.gsl ];
