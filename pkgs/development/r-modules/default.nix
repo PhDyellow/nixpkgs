@@ -500,6 +500,17 @@ let
     textshaping = [ pkgs.pkg-config ];
     ragg = [ pkgs.pkg-config ];
     qqconf = [ pkgs.pkg-config ];
+    torch = [  pkgs.cmake
+               pkgs.autoPatchelfHook
+               pkgs.addOpenGLRunpath
+               pkgs.cudaPackages.autoAddOpenGLRunpathHook
+               pkgs.patchelf
+               # pkgs.cuda_11_7ol
+               # pkgs.python3Packages.torchWithCuda
+                         # pkgs.libtorch-bin
+               # pkgs.libtorch-bin.dev
+            ];
+    # tensorflow = [ pkgs.python3Packages.tensorflow ];
   };
 
   packagesWithBuildInputs = {
@@ -637,6 +648,13 @@ let
     ijtiff = [ pkgs.libtiff ];
     ragg = with pkgs; [ freetype.dev libpng.dev libtiff.dev zlib.dev libjpeg.dev bzip2.dev ];
     qqconf = [ pkgs.fftw.dev ];
+    torch = [
+      pkgs.cudaPackages_11_7.cudatoolkit.lib
+      pkgs.cudaPackages_11_7.cuda_nvtx
+      pkgs.cudaPackages_11_7.cudnn
+              # pkgs.libtorch-bin
+            ];
+    # tensorflow = [ pkgs.cudaPackages_11_7.cudatoolkit pkgs.cudaPackages_11_7.cudnn  ];
   };
 
   packagesRequiringX = [
@@ -1393,9 +1411,79 @@ let
       '';
     });
 
-    torch = old.torch.overrideAttrs (attrs: {
+    torch = let
+      libtorch-for-r-torch = fetchurl {
+        url = "https://download.pytorch.org/libtorch/cu117/libtorch-cxx11-abi-shared-with-deps-1.13.1%2Bcu117.zip";
+        sha256 = "sha256-hkLGZXroAnMKwfS0rkrZgO7iUVdlRH5HC4O0jM0ikt4=";
+      };
+      liblantern-for-r-torch = fetchurl {
+        url = "https://storage.googleapis.com/torch-lantern-builds/binaries/refs/heads/cran/v0.10.0/latest/lantern-0.10.0+cu117+x86_64-Linux.zip";
+        sha256 = "sha256-FtXAd3M7I2Ia41spwjf44tvl/q3w8kDiYHNYW9KH3zA=";
+      };
+      # python-torch = pkgs.python3.withPackages(
+        # ps: with ps; [
+          # (torch.overrideAttrs( attrs: {
+            # version = "1.13.1";
+          # })) ]);
+    in old.torch.overrideAttrs (attrs: {
+      env = {
+        TORCH_URL = "${libtorch-for-r-torch}";
+        LANTERN_URL = "${liblantern-for-r-torch}";
+        # BUILD_TORCH = "${python-torch}";
+        # TORCH_PATH = "./";
+        # BUILD_LANTERN = "1";
+        CUDA = "11.7";
+      };
+      autoPatchelfIgnoreMissingDeps = [
+        # This is the hardware-dependent userspace driver that comes from
+        # nvidia_x11 package. It must be deployed at runtime in
+        # /run/opengl-driver/lib or pointed at by LD_LIBRARY_PATH variable, rather
+        # than pinned in runpath
+        "libcuda.so.1"
+      ];
+      dontStrip = true;
+      postFixup = ''
+    addAutoPatchelfSearchPath "$out/library/torch/lib"
+
+    patchelf $out/library/torch/lib/libcudnn.so.8 --add-needed libcudnn_cnn_infer.so.8
+
+    pushd $out/library/torch/lib || exit 1
+      for LIBNVRTC in ./libnvrtc*
+      do
+        case "$LIBNVRTC" in
+          ./libnvrtc-builtins*) true;;
+          ./libnvrtc*) patchelf "$LIBNVRTC" --add-needed libnvrtc-builtins* ;;
+        esac
+      done
+    popd || exit 1
+  '';
+
+
+      # env.TORCH_URL = "${pkgs.libtorch-bin}.libtorch-cxx11-abi-shared-with-deps-2.0.1%2Bcu117.zip";
+      # src = pkgs.fetchFromGitHub {
+        # owner = "mlverse";
+        # repo = "torch";
+        # rev = "cddadc26602d8039e1e9e7af0a537a687157d32b";
+        # sha256 = "sha256-hzpkyfidO8msgPsFbLWcCk5Vt2XCFQz4ywf3xJQDiIg=";
+      # };
       preConfigure = ''
         patchShebangs configure
+        # substituteInPlace configure \
+            # --replace "\$R_PACKAGE_DIR" "$out"
+      '';
+      preInstall = ''
+        # export TORCH_PATH=$(pwd)
+        echo $TORCH_PATH
+        pwd
+        ls -al
+        ls -al src
+        echo $installPhase
+        echo $sourceRoot
+      '';
+      postInstall = ''
+        $rCommand -e "torch::install_torch()"
+        # mkdir -p $out/library/torch/bin
+        # ln -s ${pkgs.libtorch-bin}/lib/lib/libtorch.so $out/library/torch/bin/torch.so
       '';
     });
   };
