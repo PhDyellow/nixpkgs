@@ -1412,19 +1412,15 @@ let
     });
 
     torch = let
+      version =  (builtins.parseDrvName old.torch.name).version;
       libtorch-for-r-torch = fetchurl {
         url = "https://download.pytorch.org/libtorch/cu117/libtorch-cxx11-abi-shared-with-deps-1.13.1%2Bcu117.zip";
         sha256 = "sha256-hkLGZXroAnMKwfS0rkrZgO7iUVdlRH5HC4O0jM0ikt4=";
       };
       liblantern-for-r-torch = fetchurl {
-        url = "https://storage.googleapis.com/torch-lantern-builds/binaries/refs/heads/cran/v${rPackages.torch.version}/latest/lantern-${rPackages.torch.version}+cu117+x86_64-Linux.zip";
-        sha256 = "sha256-FtXAd3M7I2Ia41spwjf44tvl/q3w8kDiYHNYW9KH300=";
-      };
-      # python-torch = pkgs.python3.withPackages(
-        # ps: with ps; [
-          # (torch.overrideAttrs( attrs: {
-            # version = "1.13.1";
-          # })) ]);
+          url = "https://storage.googleapis.com/torch-lantern-builds/binaries/refs/heads/cran/v${version}/latest/lantern-${version}+cu117+x86_64-Linux.zip";
+          sha256 = "sha256-tfXRuTs0+IbFRm8SjfY0Rx1E+gnrcQZkUzMderq6hdY=";
+        };
     in old.torch.overrideAttrs (attrs: {
       env = {
         TORCH_URL = "${libtorch-for-r-torch}";
