@@ -1417,8 +1417,8 @@ let
         sha256 = "sha256-hkLGZXroAnMKwfS0rkrZgO7iUVdlRH5HC4O0jM0ikt4=";
       };
       liblantern-for-r-torch = fetchurl {
-        url = "https://storage.googleapis.com/torch-lantern-builds/binaries/refs/heads/cran/v0.10.0/latest/lantern-0.10.0+cu117+x86_64-Linux.zip";
-        sha256 = "sha256-FtXAd3M7I2Ia41spwjf44tvl/q3w8kDiYHNYW9KH3zA=";
+        url = "https://storage.googleapis.com/torch-lantern-builds/binaries/refs/heads/cran/v${rPackages.torch.version}/latest/lantern-${rPackages.torch.version}+cu117+x86_64-Linux.zip";
+        sha256 = "sha256-FtXAd3M7I2Ia41spwjf44tvl/q3w8kDiYHNYW9KH300=";
       };
       # python-torch = pkgs.python3.withPackages(
         # ps: with ps; [
