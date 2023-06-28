@@ -1412,7 +1412,7 @@ let
     });
 
     torch = let
-      version =  (builtins.parseDrvName old.torch.name).version;
+      version =  "0.11.0";
       libtorch-for-r-torch = fetchurl {
         url = "https://download.pytorch.org/libtorch/cu117/libtorch-cxx11-abi-shared-with-deps-1.13.1%2Bcu117.zip";
         sha256 = "sha256-hkLGZXroAnMKwfS0rkrZgO7iUVdlRH5HC4O0jM0ikt4=";
