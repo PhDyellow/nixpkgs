@@ -14,7 +14,7 @@ stdenv.mkDerivation {
     owner = "wanglongqi";
     repo = "WriteTex";
     rev = "bab62e1e85ebd68981c0e79fe525cbcc68fbbbc7";
-    sha256 = "XWwkuw+Um/cflRWj0eIgQUxJLrk2DLDmx7K+pMWvIlI=";
+    sha256 = "sha256-w8+MS5gLI31ufPx3gsPVwcVfGYKgjCuAtK+7CqNNdDc=";
   };
 
   buildInputs = [
