@@ -8,6 +8,8 @@
 {
   applytransforms = callPackage ./extensions/applytransforms { };
 
+  writetex = callPackage ./extensions/writetex { };
+
   hexmap = stdenv.mkDerivation {
     pname = "hexmap";
     version = "unstable-2020-06-06";
