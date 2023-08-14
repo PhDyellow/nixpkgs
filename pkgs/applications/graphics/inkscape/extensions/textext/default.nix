@@ -27,7 +27,7 @@ python3.pkgs.buildPythonApplication rec {
     owner = "textext";
     repo = "textext";
     rev = version;
-    sha256 = "sha256-Qz039X0X3DdwZ3pIIGvEbNjl6dxjDf3idzjwCkp3WRg=";
+    sha256 = "sha256-RI1/bCi7weg1bUMtSdXlYbBKlWy9C4qLVxdmF0GVWY8=";
   };
 
   patches = [
