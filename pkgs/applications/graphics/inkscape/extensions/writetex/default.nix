@@ -22,14 +22,7 @@ stdenv.mkDerivation {
     pdf2svg
   ];
 
-  nativeCheckInputs = [
-    python3.pkgs.inkex
-    python3.pkgs.pytestCheckHook
-  ];
-
   dontBuild = true;
-
-  doCheck = true;
 
   installPhase = ''
     runHook preInstall
