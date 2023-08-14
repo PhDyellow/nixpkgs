@@ -51,6 +51,12 @@ python3.pkgs.buildPythonApplication rec {
   buildInputs = [
     gtk3
     gtksourceview3
+    python3.pkgs.pygobject3
+    # lxml, cssselect and numpy are required by inkex but is not inherited from inkscape when we use custom Python interpreter:
+    python3.pkgs.lxml
+    python3.pkgs.cssselect
+    python3.pkgs.numpy
+
   ];
 
   propagatedBuildInputs = [
