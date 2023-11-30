@@ -90,6 +90,7 @@
   ./hardware/printers.nix
   ./hardware/raid/hpsa.nix
   ./hardware/rtl-sdr.nix
+  ./hardware/ryzen-smu.nix
   ./hardware/saleae-logic.nix
   ./hardware/sata.nix
   ./hardware/sensor/hddtemp.nix

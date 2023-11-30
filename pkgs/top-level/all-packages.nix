@@ -41951,6 +41951,8 @@ with pkgs;
 
   ryzenadj = callPackage ../os-specific/linux/ryzenadj { };
 
+  monitor_cpu = callPackage ../os-specific/linux/ryzen-smu/monitor-cpu.nix { };
+
   vpsfree-client = callPackage ../tools/virtualization/vpsfree-client { };
 
   gpio-utils = callPackage ../os-specific/linux/kernel/gpio-utils.nix { };
