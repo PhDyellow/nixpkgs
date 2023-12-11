@@ -644,7 +644,7 @@ let
     ragg = with pkgs; [ freetype.dev libpng.dev libtiff.dev zlib.dev libjpeg.dev bzip2.dev ];
     qqconf = [ pkgs.fftw.dev ];
     torch = [
-      pkgs.cudaPackages_11_7.cudatoolkit.lib
+      pkgs.cudaPackages_11_7.cuda_cudart
       pkgs.cudaPackages_11_7.cuda_nvtx
       pkgs.cudaPackages_11_7.cudnn
             ];
