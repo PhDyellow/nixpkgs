@@ -73,7 +73,7 @@
   "11.7" = {
     version = "11.7.1";
     url = "https://developer.download.nvidia.com/compute/cuda/11.7.1/local_installers/cuda_11.7.1_515.65.01_linux.run";
-    sha256 = "";
+    sha256 = "sha256-UihqKXBlSbfQ/usOfj7KGxUofENqafqICtOFsb4+BNs=";
   };
 
   "11.8" = {
