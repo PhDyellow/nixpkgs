@@ -7,6 +7,10 @@
 
 let
   smu_version = "0.1.5";
+
+  # This fork supports ryzen_monitor_ng, which provides a better interface
+  # than the provided monitor_cpu.
+  # Changes have not been merged upstream.
   smu_src = fetchFromGitLab {
     owner = "mann1x";
     repo = "ryzen_smu";
