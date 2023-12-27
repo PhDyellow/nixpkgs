@@ -3,11 +3,11 @@
 with lib;
 
 let
-  cfg = config.hardware.ryzen_smu;
+  cfg = config.hardware.cpu.amd.ryzen_smu;
   ryzen_smu = config.boot.kernelPackages.ryzen_smu;
 in
 {
-  options.hardware.ryzen_smu = {
+  options.hardware.cpu.amd.ryzen_smu = {
     enable = mkEnableOption (lib.mdDoc ''
         A linux kernel driver that exposes access to the SMU (System Management Unit) for certain AMD Ryzen Processors.
 
@@ -18,9 +18,8 @@ in
   config = mkIf cfg.enable {
     boot.kernelModules = [ "ryzen_smu" ];
     boot.extraModulePackages = [ ryzen_smu ];
-    environment.systemPackages = [ pkgs.monitor_cpu ];
   };
 
-  meta.maintainers = with maintainers; [ phdyellow ];
+  meta.maintainers = with maintainers; [ Cryolitia phdyellow ];
 
 }

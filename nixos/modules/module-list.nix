@@ -55,6 +55,7 @@
   ./hardware/corectrl.nix
   ./hardware/cpu/amd-microcode.nix
   ./hardware/cpu/amd-sev.nix
+  ./hardware/cpu/amd-ryzen-smu.nix
   ./hardware/cpu/intel-microcode.nix
   ./hardware/cpu/intel-sgx.nix
   ./hardware/cpu/x86-msr.nix
@@ -90,7 +91,6 @@
   ./hardware/printers.nix
   ./hardware/raid/hpsa.nix
   ./hardware/rtl-sdr.nix
-  ./hardware/ryzen-smu.nix
   ./hardware/saleae-logic.nix
   ./hardware/sata.nix
   ./hardware/sensor/hddtemp.nix
