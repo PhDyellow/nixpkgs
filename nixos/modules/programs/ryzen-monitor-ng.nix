@@ -30,10 +30,10 @@ in
   config = mkIf cfg.enable (mkMerge [
     {
       environment.systemPackages = [ pkgs.ryzen_monitor_ng ];
-      hardware.ryzen_smu.enable = true;
+      hardware.cpu.amd.ryzen_smu.enable = true;
     }
   ]);
 
-  meta.maintainers = with maintainers; [ phdyellow ];
+  meta.maintainers = with maintainers; [ Cryolitia phdyellow ];
 
 }
