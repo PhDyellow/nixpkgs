@@ -5,6 +5,9 @@ with lib;
 let
   cfg = config.hardware.cpu.amd.ryzen_smu;
   ryzen_smu = config.boot.kernelPackages.ryzen_smu;
+  ryzenadjCheck = lib.warnIf (builtins.elem pkgs.ryzenadj config.environment.systemPackages)
+    "ryzenadj is in environment.systemPackages, try hardware.cpu.amd.ryzen-smu and programs.ryzen_monitor_ng for more features.";
+
 in
 {
   options.hardware.cpu.amd.ryzen_smu = {
@@ -18,6 +21,7 @@ in
   config = mkIf cfg.enable {
     boot.kernelModules = [ "ryzen_smu" ];
     boot.extraModulePackages = [ ryzen_smu ];
+    environment.systemPackages = [ ryzen_smu ];
   };
 
   meta.maintainers = with maintainers; [ Cryolitia phdyellow ];
