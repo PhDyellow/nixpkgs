@@ -4,6 +4,9 @@ stdenv.mkDerivation rec {
   pname = "ryzen_monitor_ng";
   version = "2.0.5";
 
+  # Upstream has not updated ryzen_smu header version
+  # This fork corrects ryzen_smu header version and
+  # adds support for Matisse AMD CPUs.
   src = fetchFromGitHub {
     owner = "kvic-z";
     repo = "ryzen_monitor_ng";
