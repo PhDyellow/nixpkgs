@@ -16,9 +16,11 @@ stdenv.mkDerivation rec {
 
   buildPhase = ''
     runHook preBuild
+
     make clean
     rm src/ryzen_monitor
     make
+
     runHook postBuild
   '';
 
@@ -38,5 +40,6 @@ stdenv.mkDerivation rec {
     license = licenses.agpl3Only;
     platforms = [ "x86_64-linux" ];
     maintainers = [ lib.maintainers.phdyellow ];
+    mainProgram = [ "ryzen_monitor" ];
   };
 }
