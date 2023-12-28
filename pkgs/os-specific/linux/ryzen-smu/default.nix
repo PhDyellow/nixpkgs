@@ -84,12 +84,17 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   meta = with lib; {
-    #broken = stdenv.isAarch64;
+
     description = "A Linux kernel driver that exposes access to the SMU (System Management Unit) for certain AMD Ryzen Processors";
+
     homepage = "https://gitlab.com/leogx9r/ryzen_smu";
+
     license = licenses.gpl2Plus;
+
     maintainers = with maintainers; [ Cryolitia phdyellow ];
-    platforms = platforms.linux;
+
+    platforms = [ "x86_64-linux" ];
+
     mainProgram = "monitor_cpu";
   };
 })
