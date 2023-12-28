@@ -40,6 +40,6 @@ stdenv.mkDerivation rec {
     license = licenses.agpl3Only;
     platforms = [ "x86_64-linux" ];
     maintainers = [ lib.maintainers.phdyellow ];
-    mainProgram = [ "ryzen_monitor" ];
+    mainProgram = "ryzen_monitor";
   };
 }
