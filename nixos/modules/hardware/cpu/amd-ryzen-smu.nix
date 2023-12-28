@@ -5,9 +5,6 @@ with lib;
 let
   cfg = config.hardware.cpu.amd.ryzen_smu;
   ryzen_smu = config.boot.kernelPackages.ryzen_smu;
-  ryzenadjCheck = lib.warnIf (builtins.elem pkgs.ryzenadj config.environment.systemPackages)
-    "ryzenadj is in environment.systemPackages, try hardware.cpu.amd.ryzen-smu and programs.ryzen_monitor_ng for more features.";
-
 in
 {
   options.hardware.cpu.amd.ryzen_smu = {
