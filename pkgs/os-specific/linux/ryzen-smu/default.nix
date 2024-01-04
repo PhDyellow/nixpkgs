@@ -16,7 +16,7 @@ let
     owner = "Cryolitia";
     repo = "ryzen_smu";
     rev = "ce1aa918efa33ca79998f0f7d467c04d4b07016c";
-    hash = "sha256-73UWFYoCOT8v/g0EeCU7AnvB6dEKIr2YgQkGD0XQ+CE=";
+    hash = "sha256-s9SSmbL6ixWqZUKEhrZdxN4xoWgk+8ClZPoKq2FDAAE=";
   };
 
   monitor-cpu = stdenv.mkDerivation (finalAttrs: {
