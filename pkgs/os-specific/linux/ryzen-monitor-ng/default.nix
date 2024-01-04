@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     owner = "plasmin";
     repo = "ryzen_monitor_ng";
     rev = "8b7854791d78de731a45ce7d30dd17983228b7b1";
-    sha256 = lib.fakeHash;
+    sha256 = "1akgki74p02f03vblqa2i5a77j4dfj26wry1kj8mh5h29dybdibx";
   };
 
   buildPhase = ''
