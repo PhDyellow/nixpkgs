@@ -8,10 +8,10 @@ stdenv.mkDerivation rec {
   # This fork corrects ryzen_smu header version and
   # adds support for Matisse AMD CPUs.
   src = fetchFromGitHub {
-    owner = "kvic-z";
+    owner = "plasmin";
     repo = "ryzen_monitor_ng";
-    rev = "2bb122d7a75eebb8a18ceb5533824b48884cd3d5";
-    sha256 = "sha256-pS480faA2ILJrAEBdWu4hksj3WhdAB8A9710ern1mJg=";
+    rev = "8b7854791d78de731a45ce7d30dd17983228b7b1";
+    sha256 = lib.fakeHash;
   };
 
   buildPhase = ''
