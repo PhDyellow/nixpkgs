@@ -8,14 +8,15 @@
 let
   smu_version = "0.1.5";
 
-  # This fork supports ryzen_monitor_ng, which provides a better interface
-  # than the provided monitor_cpu.
-  # Changes have not been merged upstream.
-  smu_src = fetchFromGitLab {
-    owner = "mann1x";
+  ## Upstream has not been merging PRs.
+  ## Nixpkgs maintainers are providing a
+  ## repo with PRs merged until upstream is
+  ## updated.
+  smu_src = fetchFromGitHub {
+    owner = "Cryolitia";
     repo = "ryzen_smu";
-    rev = "adaf53c77dc68b99643ab7af729eb9c592cf5e01";
-    hash = "sha256-OQyPqNL8Cd7XQfY8YiOVYqOG7RIu5l+wJoK2FDBg5eg=";
+    rev = "ce1aa918efa33ca79998f0f7d467c04d4b07016c";
+    hash = lib.fakeHash
   };
 
   smu_patches = [
