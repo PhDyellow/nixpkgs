@@ -23,16 +23,17 @@ in
 
         WARNING: Damage cause by use of your AMD processor outside of official AMD specifications or outside of factory settings are not covered under any AMD product warranty and may not be covered by your board or system manufacturer's warranty.
       '');
+
+      package = mkPackageOption pkgs "ryzen_monitor_ng" {};
+
     };
 
   };
 
-  config = mkIf cfg.enable (mkMerge [
-    {
-      environment.systemPackages = [ pkgs.ryzen_monitor_ng ];
+  config = mkIf cfg.enable {
+      environment.systemPackages = [ cfg.package ];
       hardware.cpu.amd.ryzen_smu.enable = true;
-    }
-  ]);
+  };
 
   meta.maintainers = with maintainers; [ Cryolitia phdyellow ];
 

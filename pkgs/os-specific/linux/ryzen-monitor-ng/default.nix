@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "ryzen_monitor_ng";
-  version = "2.0.5";
+  version = "2.0.5-unstable-2023-11-05";
 
   # Upstream has not updated ryzen_smu header version
   # This fork corrects ryzen_smu header version and
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/mann1x/ryzen_monitor_ng";
     license = licenses.agpl3Only;
     platforms = [ "x86_64-linux" ];
-    maintainers = [ lib.maintainers.phdyellow ];
+    maintainers = with maintainers; [ phdyellow ];
     mainProgram = "ryzen_monitor";
   };
 }
