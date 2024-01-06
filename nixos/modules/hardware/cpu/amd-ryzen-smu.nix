@@ -4,7 +4,6 @@ with lib;
 
 let
   cfg = config.hardware.cpu.amd.ryzen_smu;
-  ryzen_smu = config.boot.kernelPackages.ryzen_smu;
 in
 {
   options.hardware.cpu.amd.ryzen_smu = {
@@ -13,12 +12,17 @@ in
 
         WARNING: Damage cause by use of your AMD processor outside of official AMD specifications or outside of factory settings are not covered under any AMD product warranty and may not be covered by your board or system manufacturer's warranty.
       '');
+
+    package = mkPackageOption pkgs.boot.kernelPackages "ryzen_smu" {
+      pkgsText = "pkgs.boot.kernelPackages";
+    };
+
   };
 
   config = mkIf cfg.enable {
-    boot.kernelModules = [ "ryzen_smu" ];
-    boot.extraModulePackages = [ ryzen_smu ];
-    environment.systemPackages = [ ryzen_smu ];
+    boot.kernelModules = [ "${cfg.package.name}" ];
+    boot.extraModulePackages = [ cfg.package ];
+    environment.systemPackages = [ cfg.package ];
   };
 
   meta.maintainers = with maintainers; [ Cryolitia phdyellow ];
