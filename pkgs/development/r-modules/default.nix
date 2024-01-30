@@ -1423,7 +1423,7 @@ let
       };
       liblantern-for-r-torch = fetchurl {
         url = "https://storage.googleapis.com/torch-lantern-builds/binaries/1eb79012eea28ee3d5e8db2c9a87f58651d00bc0/lantern-${version}+${cuda_kind}+x86_64+pre-cxx11-Linux.zip";
-        sha256 = "sha256-Vn2aahb4cY9U0+yLGeCzUWAW9WMvaXtZJrQ1m/82IPE=";
+        sha256 = "sha256-YzOyAx6TIkgqqvxmVqIm7giTimipD6RtIi4pmPamU74=";
         };
     in old.torch.overrideAttrs (attrs: {
       env = {
