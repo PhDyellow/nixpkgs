@@ -644,9 +644,9 @@ let
     ragg = with pkgs; [ freetype.dev libpng.dev libtiff.dev zlib.dev libjpeg.dev bzip2.dev ];
     qqconf = [ pkgs.fftw.dev ];
     torch = [
-      pkgs.cudaPackages_11_7.cudatoolkit.lib
-      pkgs.cudaPackages_11_7.cuda_nvtx
-      pkgs.cudaPackages_11_7.cudnn
+      pkgs.cudaPackages_11_8.cuda_cudart
+      pkgs.cudaPackages_11_8.cuda_nvtx
+      pkgs.cudaPackages_11_8.cudnn
             ];
   };
 
@@ -1415,20 +1415,21 @@ let
     });
 
     torch = let
-      version =  "0.11.0";
+      version =  "0.12.0";
+      cuda_kind = "cu118";
       libtorch-for-r-torch = fetchurl {
-        url = "https://download.pytorch.org/libtorch/cu117/libtorch-cxx11-abi-shared-with-deps-1.13.1%2Bcu117.zip";
-        sha256 = "sha256-hkLGZXroAnMKwfS0rkrZgO7iUVdlRH5HC4O0jM0ikt4=";
+        url = "https://download.pytorch.org/libtorch/${cuda_kind}/libtorch-cxx11-abi-shared-with-deps-2.0.1%2B${cuda_kind}.zip";
+        sha256 = "sha256-XnpHepJKPS8oIqPrs0Ujag3TS9MpPudBmXHi9/XjsA4=";
       };
       liblantern-for-r-torch = fetchurl {
-          url = "https://storage.googleapis.com/torch-lantern-builds/binaries/refs/heads/cran/v${version}/latest/lantern-${version}+cu117+x86_64-Linux.zip";
-          sha256 = "sha256-tfXRuTs0+IbFRm8SjfY0Rx1E+gnrcQZkUzMderq6hdY=";
+        url = "https://storage.googleapis.com/torch-lantern-builds/binaries/1eb79012eea28ee3d5e8db2c9a87f58651d00bc0/lantern-${version}+${cuda_kind}+x86_64+pre-cxx11-Linux.zip";
+        sha256 = "sha256-Vn2aahb4cY9U0+yLGeCzUWAW9WMvaXtZJrQ1m/82IPE=";
         };
     in old.torch.overrideAttrs (attrs: {
       env = {
         TORCH_URL = "${libtorch-for-r-torch}";
         LANTERN_URL = "${liblantern-for-r-torch}";
-        CUDA = "11.7";
+        CUDA = "11.8";
       };
       autoPatchelfIgnoreMissingDeps = [
         # This is the hardware-dependent userspace driver that comes from
