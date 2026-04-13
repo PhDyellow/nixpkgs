@@ -1,6 +1,8 @@
 { lib
 , python3Packages
 , fetchFromGitHub
+, pre-commit
+#, deptry
 }:
 
 python3Packages.buildPythonApplication (finalAttrs: {
@@ -12,7 +14,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     owner = "gavinying";
     repo = "${finalAttrs.pname}";
     rev = "v${finalAttrs.version}";
-    hash = lib.fakeHash;
+    hash = "sha256-qUnoRNe6MZLBN2gB35IzFgFCmqONUMkQPuWIQYDisrw=";
   };
 
   build-system = with python3Packages; [
@@ -35,10 +37,16 @@ python3Packages.buildPythonApplication (finalAttrs: {
     wcwidth
 
     # pyproject dev dependencies
-    # pre-commit
+    pre-commit
     pytest
-    deptry
+    # deptry
     tox
+  ];
+
+  disabledTests = [
+    # Tests fail due to lack of network
+    "test_mqtt_task_connect"
+    "test_modbus_task_poll_modsim"
   ];
 
   meta = {
