@@ -35,7 +35,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     wcwidth
 
     # pyproject dev dependencies
-    pre-commit
+    # pre-commit
     pytest
     deptry
     tox
